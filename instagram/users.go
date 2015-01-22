@@ -40,8 +40,8 @@ func (o *UserApi) GetSelfFeed(count int, minId string, maxId string) ([]Media, *
 		params.Set("max_id", maxId)
 	}
 
-	data, err := o.Instagram.NewRequest(item, "GET", path, params, true)
-	return *item, data ,err
+	content, err := o.Instagram.NewRequest(item, "GET", path, params, true)
+	return *item, content ,err
 }
 
 //http://instagram.com/developer/endpoints/users/#get_users_media_recent_with_client_id
@@ -58,8 +58,8 @@ func (o *UserApi) GetRecentMedia(userId string, count int, minId string, maxId s
 		params.Set("max_id", maxId)
 	}
 
-	data, err := o.Instagram.NewRequest(item, "GET", path, params, true)
-	return *item, data ,err
+	content, err := o.Instagram.NewRequest(item, "GET", path, params, true)
+	return *item, content ,err
 }
 
 //http://instagram.com/developer/endpoints/users/#get_users_feed_liked
@@ -70,19 +70,19 @@ func (o *UserApi) GetLikedMedia(count int) ([]Media, *Content, error) {
 	var params = url.Values{}
 	params.Set("count", strconv.Itoa(count))
 
-	data, err := o.Instagram.NewRequest(item, "GET", path, params, true)
-	return *item, data ,err
+	content, err := o.Instagram.NewRequest(item, "GET", path, params, true)
+	return *item, content ,err
 }
 
 //http://instagram.com/developer/endpoints/users/#get_users_search
-func (o *UserApi) Search(query string, count int) ([]Media, *Content, error) {
-	var path = "/users/self/media/liked"
-	var item = new([]Media)
+func (o *UserApi) Search(query string, count int) ([]User, *Content, error) {
+	var path = "/users/search"
+	var item = new([]User)
 	var params = url.Values{}
 	params.Set("q", query)
 	params.Set("count", strconv.Itoa(count))
 
-	data, err := o.Instagram.NewRequest(item, "GET", path, params, true)
-	return *item, data ,err
+	content, err := o.Instagram.NewRequest(item, "GET", path, params, true)
+	return *item, content ,err
 
 }
