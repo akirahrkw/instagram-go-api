@@ -34,11 +34,10 @@ func (i *Instagram) SetAccessToken(accessToken string) {
 	i.Config.AccessToken = accessToken
 }
 
-func (i *Instagram) NewRequest(method string, path string, item interface{}, isAccessToken bool) (*Content, error) {
+func (i *Instagram) NewRequest(item interface{}, method string, path string, params url.Values, isAccessToken bool) (*Content, error) {
 
 	path = i.Config.Domain + i.Config.Prefix + path
 	
-	var params = url.Values{}
 	if isAccessToken {
 		params.Set("access_token", i.Config.AccessToken)
 	} else {

@@ -2,47 +2,87 @@ package instagram
 
 import (
 	"fmt"
+	"net/url"
+	"strconv"
 )
 
 type UserApi struct {
 	Instagram *Instagram
 }
 
+//http://instagram.com/developer/endpoints/users/#get_users
 func (o *UserApi) GetUser(userId string) (*User, *Content, error) {
 	var path = fmt.Sprintf("/users/%s", userId)
 	var item = new(User)
-	data, err := o.Instagram.NewRequest("GET", path, item, true)
+	data, err := o.Instagram.NewRequest(item, "GET", path, nil, true)
 	return item, data, err
 }
 
+//http://instagram.com/developer/endpoints/users/#get_users
 func (o *UserApi) GetSelf() (*User, *Content, error) {
 	var path = "/users/self"
 	var item = new(User)
-	data, err := o.Instagram.NewRequest("GET", path, item, true)
+	data, err := o.Instagram.NewRequest(item, "GET", path, nil, true)
 	return item, data, err
 }
 
-func (o *UserApi) GetSelfFeed() {
+//http://instagram.com/developer/endpoints/users/#get_users_feed
+func (o *UserApi) GetSelfFeed(count int, minId string, maxId string) ([]Media, *Content, error) {
 	var path = "/users/self/feed"
 	var item = new([]Media)
-	data, err := o.Instagram.NewRequest("GET", path, item, true)
+
+	var params = url.Values{}
+	params.Set("count", strconv.Itoa(count))
+	if minId != "" {
+		params.Set("min_id", minId)
+	}
+	if maxId != "" {
+		params.Set("max_id", maxId)
+	}
+
+	data, err := o.Instagram.NewRequest(item, "GET", path, params, true)
 	return *item, data ,err
 }
 
-func (o *UserApi) GetRecentMedia(userId string) ([]Media, *Content, error) {
+//http://instagram.com/developer/endpoints/users/#get_users_media_recent_with_client_id
+func (o *UserApi) GetRecentMedia(userId string, count int, minId string, maxId string) ([]Media, *Content, error) {
 	var path = fmt.Sprintf("/users/%s/media/recent", userId)
 	var item = new([]Media)
-	data, err := o.Instagram.NewRequest("GET", path, item, true)
+
+	var params = url.Values{}
+	params.Set("count", strconv.Itoa(count))
+	if minId != "" {
+		params.Set("min_id", minId)
+	}
+	if maxId != "" {
+		params.Set("max_id", maxId)
+	}
+
+	data, err := o.Instagram.NewRequest(item, "GET", path, params, true)
 	return *item, data ,err
 }
 
-func (o *UserApi) GetLikedMedia() {
+//http://instagram.com/developer/endpoints/users/#get_users_feed_liked
+func (o *UserApi) GetLikedMedia(count int) ([]Media, *Content, error) {
 	var path = "/users/self/media/liked"
 	var item = new([]Media)
-	data, err := o.Instagram.NewRequest("GET", path, item, true)
+
+	var params = url.Values{}
+	params.Set("count", strconv.Itoa(count))
+
+	data, err := o.Instagram.NewRequest(item, "GET", path, params, true)
 	return *item, data ,err
 }
 
-func (o *UserApi) Search(query string) {
-	//TODO
+//http://instagram.com/developer/endpoints/users/#get_users_search
+func (o *UserApi) Search(query string, count int) ([]Media, *Content, error) {
+	var path = "/users/self/media/liked"
+	var item = new([]Media)
+	var params = url.Values{}
+	params.Set("q", query)
+	params.Set("count", strconv.Itoa(count))
+
+	data, err := o.Instagram.NewRequest(item, "GET", path, params, true)
+	return *item, data ,err
+
 }
