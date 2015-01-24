@@ -32,10 +32,13 @@ type User struct {
 	Id string `json:"id,omitempty"`
 	Username string `json:"username,omitempty"`
 	FullName string `json:"full_name,omitempty"`
+	LastName string `json:"last_name,omitempty"`
+	FirstName string `json:"first_name,omitempty"`
 	ProfilePicture string `json:"profile_picture,omitempty"`
 	Bio string `json:"bio,omitempty"`
 	Website string `json:"website,omitempty"`
 	Counts *UserCount `json:"counts,omitempty"`
+	Type string `json:"type,omitempty"`
 }
 
 type UserCount struct {

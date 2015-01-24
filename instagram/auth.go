@@ -18,6 +18,15 @@ func (i *Instagram) AuthorizeURL() string {
 	return i.Config.Domain + "/oauth/authorize?" + params.Encode()
 }
 
+func (i *Instagram) AuthorizeURLWithScope(scope []string) string {
+	var params = url.Values{}
+	params.Set("client_id", i.Config.ClientId)
+	params.Set("redirect_uri", i.Config.RedirectUri)
+	params.Set("response_type", i.Config.ResponseType)
+	params.Set("scope", strings.Join(scope," "))
+	return i.Config.Domain + "/oauth/authorize?" + params.Encode()
+}
+
 func (i *Instagram) RequestAccessToken(code string) (*Auth, error) {
 	var params = url.Values{}
 	params.Set("client_id", i.Config.ClientId)

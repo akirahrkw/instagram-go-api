@@ -3,7 +3,6 @@ package instagram
 import (
 	"fmt"
 	"net/url"
-	// "strconv"
 )
 
 type MediaApi struct {

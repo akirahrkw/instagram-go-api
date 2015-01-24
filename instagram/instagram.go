@@ -29,6 +29,7 @@ type Instagram struct {
 	Client *http.Client
 	Users *UserApi
 	Media *MediaApi
+	Likes *LikesApi
 }
 
 func (i *Instagram) SetAccessToken(accessToken string) {
@@ -90,7 +91,9 @@ func NewClient(callback func(*Config)) *Instagram {
 	
 	var instagram = &Instagram{Config:config}
 	instagram.Client = http.DefaultClient
-	instagram.Users = &UserApi{ Instagram:instagram }
-	instagram.Media = &MediaApi{ Instagram:instagram }
+	instagram.Users = &UserApi{Instagram:instagram}
+	instagram.Media = &MediaApi{Instagram:instagram}
+	instagram.Likes = &LikesApi{Instagram:instagram}
+
 	return instagram
 }
