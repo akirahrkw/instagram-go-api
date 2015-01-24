@@ -28,8 +28,6 @@ func (o *UserApi) GetSelf() (*User, *Content, error) {
 
 //http://instagram.com/developer/endpoints/users/#get_users_feed
 func (o *UserApi) GetSelfFeed(count int, minId string, maxId string) ([]Media, *Content, error) {
-	var path = "/users/self/feed"
-	var item = new([]Media)
 
 	var params = url.Values{}
 	params.Set("count", strconv.Itoa(count))
@@ -40,14 +38,14 @@ func (o *UserApi) GetSelfFeed(count int, minId string, maxId string) ([]Media, *
 		params.Set("max_id", maxId)
 	}
 
+	var path = "/users/self/feed"
+	var item = new([]Media)
 	content, err := o.Instagram.NewRequest(item, "GET", path, params, true)
 	return *item, content ,err
 }
 
 //http://instagram.com/developer/endpoints/users/#get_users_media_recent_with_client_id
 func (o *UserApi) GetRecentMedia(userId string, count int, minId string, maxId string) ([]Media, *Content, error) {
-	var path = fmt.Sprintf("/users/%s/media/recent", userId)
-	var item = new([]Media)
 
 	var params = url.Values{}
 	params.Set("count", strconv.Itoa(count))
@@ -58,30 +56,33 @@ func (o *UserApi) GetRecentMedia(userId string, count int, minId string, maxId s
 		params.Set("max_id", maxId)
 	}
 
+	var path = fmt.Sprintf("/users/%s/media/recent", userId)
+	var item = new([]Media)
 	content, err := o.Instagram.NewRequest(item, "GET", path, params, true)
 	return *item, content ,err
 }
 
 //http://instagram.com/developer/endpoints/users/#get_users_feed_liked
 func (o *UserApi) GetLikedMedia(count int) ([]Media, *Content, error) {
-	var path = "/users/self/media/liked"
-	var item = new([]Media)
 
 	var params = url.Values{}
 	params.Set("count", strconv.Itoa(count))
 
+	var path = "/users/self/media/liked"
+	var item = new([]Media)
 	content, err := o.Instagram.NewRequest(item, "GET", path, params, true)
 	return *item, content ,err
 }
 
 //http://instagram.com/developer/endpoints/users/#get_users_search
 func (o *UserApi) Search(query string, count int) ([]User, *Content, error) {
-	var path = "/users/search"
-	var item = new([]User)
+
 	var params = url.Values{}
 	params.Set("q", query)
 	params.Set("count", strconv.Itoa(count))
 
+	var path = "/users/search"
+	var item = new([]User)
 	content, err := o.Instagram.NewRequest(item, "GET", path, params, true)
 	return *item, content ,err
 

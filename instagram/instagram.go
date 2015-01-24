@@ -28,6 +28,7 @@ type Instagram struct {
 	Config *Config
 	Client *http.Client
 	Users *UserApi
+	Media *MediaApi
 }
 
 func (i *Instagram) SetAccessToken(accessToken string) {
@@ -38,6 +39,10 @@ func (i *Instagram) NewRequest(item interface{}, method string, path string, par
 
 	path = i.Config.Domain + i.Config.Prefix + path
 	
+	if params == nil {
+		params = url.Values{}
+	}
+
 	if isAccessToken {
 		params.Set("access_token", i.Config.AccessToken)
 	} else {
@@ -68,7 +73,7 @@ func (i *Instagram) NewRequest(item interface{}, method string, path string, par
 		return nil, err
 	}
 
-	//fmt.Printf("%s", body)	
+	//fmt.Printf("%s", body)
 	var content = &Content{Data:item}
 	json.Unmarshal(body, content)
 	return content, nil
@@ -86,5 +91,6 @@ func NewClient(callback func(*Config)) *Instagram {
 	var instagram = &Instagram{Config:config}
 	instagram.Client = http.DefaultClient
 	instagram.Users = &UserApi{ Instagram:instagram }
+	instagram.Media = &MediaApi{ Instagram:instagram }
 	return instagram
 }
