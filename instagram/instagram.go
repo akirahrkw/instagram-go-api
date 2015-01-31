@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"strings"
 	"encoding/json"
+	"bytes"
 )
 var _ = fmt.Printf
 
@@ -30,6 +31,7 @@ type Instagram struct {
 	Users *UserApi
 	Media *MediaApi
 	Likes *LikesApi
+	Relationships *RelationshipsApi
 }
 
 func (i *Instagram) SetAccessToken(accessToken string) {
@@ -39,6 +41,13 @@ func (i *Instagram) SetAccessToken(accessToken string) {
 func (i *Instagram) NewRequest(item interface{}, method string, path string, params url.Values, isAccessToken bool) (*Content, error) {
 
 	path = i.Config.Domain + i.Config.Prefix + path
+
+	// create post parameter
+	var bufferedBody *bytes.Buffer
+	if strings.ToUpper(method) == "POST" {
+		bufferedBody = bytes.NewBufferString(params.Encode())
+		params = nil
+	}
 	
 	if params == nil {
 		params = url.Values{}
@@ -50,7 +59,14 @@ func (i *Instagram) NewRequest(item interface{}, method string, path string, par
 		params.Set("client_id", i.Config.ClientId)		
 	}
 
-	req, err := http.NewRequest(method, path, nil)
+	var req *http.Request
+	var err error
+	if bufferedBody != nil {
+		req, err = http.NewRequest(method, path, bufferedBody)
+	} else {
+		req, err = http.NewRequest(method, path, nil)
+	}
+
 	if err != nil {
 		return nil, err
 	}	
@@ -73,8 +89,8 @@ func (i *Instagram) NewRequest(item interface{}, method string, path string, par
 	if err != nil {
 		return nil, err
 	}
-
 	//fmt.Printf("%s", body)
+
 	var content = &Content{Data:item}
 	json.Unmarshal(body, content)
 	return content, nil
@@ -94,6 +110,7 @@ func NewClient(callback func(*Config)) *Instagram {
 	instagram.Users = &UserApi{Instagram:instagram}
 	instagram.Media = &MediaApi{Instagram:instagram}
 	instagram.Likes = &LikesApi{Instagram:instagram}
+	instagram.Relationships = &RelationshipsApi{Instagram:instagram}
 
 	return instagram
 }

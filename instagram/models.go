@@ -124,3 +124,8 @@ type Media struct {
 	Location *Location `json:"location,omitempty"`
 }
 
+type Relationship struct {
+	OutgoingStatus string `json:"outgoing_status,omitempty"`
+	IncomingStatus string `json:"incoming_status,omitempty"`
+	TargetUserIsPrivate bool `json:"target_user_is_private,omitempty"`
+}
