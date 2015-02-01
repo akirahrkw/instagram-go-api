@@ -30,6 +30,7 @@ type Instagram struct {
 	Client *http.Client
 	Users *UserApi
 	Media *MediaApi
+	Comments *CommentsApi
 	Likes *LikesApi
 	Relationships *RelationshipsApi
 }
@@ -109,6 +110,7 @@ func NewClient(callback func(*Config)) *Instagram {
 	instagram.Client = http.DefaultClient
 	instagram.Users = &UserApi{Instagram:instagram}
 	instagram.Media = &MediaApi{Instagram:instagram}
+	instagram.Comments = &CommentsApi{Instagram:instagram}
 	instagram.Likes = &LikesApi{Instagram:instagram}
 	instagram.Relationships = &RelationshipsApi{Instagram:instagram}
 

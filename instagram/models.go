@@ -27,7 +27,6 @@ type Pagination struct {
 	NextMaxId  string  `json:"next_max_id,omitempty"`
 }
 
-// User
 type User struct {
 	Id string `json:"id,omitempty"`
 	Username string `json:"username,omitempty"`
@@ -47,7 +46,6 @@ type UserCount struct {
 	FollowedBy int `json:"followed_by,omitempty"`
 }
 
-// Auth
 type Auth struct {
 	//error
 	Code int `json:"code,omitempty"`
@@ -58,7 +56,6 @@ type Auth struct {
 	User *User `json:"user,omitempty"`
 }
 
-// Image
 type Image struct {
 	Url string `json:"url,omitempty"`
 	Width int `json:"width,omitempty"`
@@ -71,7 +68,6 @@ type Images struct {
   StandardResolution *Image `json:"standard_resolution,omitempty"`
 }
 
-// Video
 type Video struct {
 	Url string `json:"url,omitempty"`
 	Width int `json:"width,omitempty"`
@@ -83,13 +79,11 @@ type Videos struct {
   StandardResolution *Image `json:"standard_resolution,omitempty"`
 }
 
-// Like
 type Likes struct {
 	Count int `json:"count,omitempty"`
 	Data  []User `json:"data,omitempty"`
 }
 
-// Comment
 type Comment struct {
 	Id string `json:"id,omitempty"`
 	Text string `json:"text,omitempty"`
@@ -101,7 +95,6 @@ type Comments struct {
 	Data 	[]Comment `json:"data,omitempty"`
 }
 
-// Location
 type Location struct {
 	Id string `json:"id,omitempty"`
 	Name string `json:"name,omitempty"`
@@ -110,7 +103,6 @@ type Location struct {
 	Longitude float64 `json:"longitude,omitempty"`
 }
 
-// Media
 type Media struct {
 	Id string `json:"id,omitempty"`
 	Type string `json:"type,omitempty"`
