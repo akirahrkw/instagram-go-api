@@ -121,3 +121,8 @@ type Relationship struct {
 	IncomingStatus string `json:"incoming_status,omitempty"`
 	TargetUserIsPrivate bool `json:"target_user_is_private,omitempty"`
 }
+
+type Tag struct {
+	MediaCount int `json:"media_count,omitempty"`
+	Name string `json:"name,omitempty"`
+}

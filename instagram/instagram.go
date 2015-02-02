@@ -33,6 +33,7 @@ type Instagram struct {
 	Comments *CommentsApi
 	Likes *LikesApi
 	Relationships *RelationshipsApi
+	Tags *TagsApi
 }
 
 func (i *Instagram) SetAccessToken(accessToken string) {
@@ -113,6 +114,7 @@ func NewClient(callback func(*Config)) *Instagram {
 	instagram.Comments = &CommentsApi{Instagram:instagram}
 	instagram.Likes = &LikesApi{Instagram:instagram}
 	instagram.Relationships = &RelationshipsApi{Instagram:instagram}
+	instagram.Tags = &TagsApi{Instagram:instagram}
 
 	return instagram
 }
