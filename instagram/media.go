@@ -10,7 +10,7 @@ type MediaApi struct {
 }
 
 //http://instagram.com/developer/endpoints/media/#get_media
-func (o *MediaApi) GetMedia(mediaId string) (*Media, *Content, error) {
+func (o *MediaApi) Get(mediaId string) (*Media, *Content, error) {
 	var path = fmt.Sprintf("/media/%s", mediaId)
 	var item = new(Media)
 	data, err := o.Instagram.NewRequest(item, "GET", path, nil, true)
@@ -18,7 +18,7 @@ func (o *MediaApi) GetMedia(mediaId string) (*Media, *Content, error) {
 }
 
 //http://instagram.com/developer/endpoints/media/#get_media_by_shortcode
-func (o *MediaApi) GetShortcode(shortcode string) (*Media, *Content, error) {
+func (o *MediaApi) Shortcode(shortcode string) (*Media, *Content, error) {
 	var path = fmt.Sprintf("/media/shortcode/%s", shortcode)
 	var item = new(Media)
 	data, err := o.Instagram.NewRequest(item, "GET", path, nil, true)
@@ -26,25 +26,7 @@ func (o *MediaApi) GetShortcode(shortcode string) (*Media, *Content, error) {
 }
 
 //http://instagram.com/developer/endpoints/media/#get_media_popular
-func (o *MediaApi) GetSearch(lat string, lng string, distance string, minTimestamp string, maxTimestamp string) ([]Media, *Content, error) {
-
-	var params = url.Values{}
-	if lat != "" {
-		params.Set("lat", lat)
-	}
-	if lng != "" {
-		params.Set("lng", lng)
-	}
-	if distance != "" {
-		params.Set("distance", distance)
-	}
-	if minTimestamp != "" {
-		params.Set("min_timestamp", minTimestamp)
-	}
-	if maxTimestamp != "" {
-		params.Set("max_timestamp", maxTimestamp)
-	}
-
+func (o *MediaApi) Search(params url.Values) ([]Media, *Content, error) {
 	var path = "/media/search/"
 	var item = new([]Media)
 	data, err := o.Instagram.NewRequest(item, "GET", path, params, true)
@@ -52,7 +34,7 @@ func (o *MediaApi) GetSearch(lat string, lng string, distance string, minTimesta
 }
 
 //http://instagram.com/developer/endpoints/media/#get_media_popular
-func (o *MediaApi) GetPopular() ([]Media, *Content, error) {
+func (o *MediaApi) Popular() ([]Media, *Content, error) {
 	var path = "/media/popular/"
 	var item = new([]Media)
 	data, err := o.Instagram.NewRequest(item, "GET", path, nil, true)
