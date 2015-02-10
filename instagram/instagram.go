@@ -34,6 +34,7 @@ type Instagram struct {
 	Likes *LikesApi
 	Relationships *RelationshipsApi
 	Tags *TagsApi
+	Locations *LocationsApi
 }
 
 func (i *Instagram) SetAccessToken(accessToken string) {
@@ -115,6 +116,7 @@ func NewClient(callback func(*Config)) *Instagram {
 	instagram.Likes = &LikesApi{Instagram:instagram}
 	instagram.Relationships = &RelationshipsApi{Instagram:instagram}
 	instagram.Tags = &TagsApi{Instagram:instagram}
+	instagram.Locations = &LocationsApi{Instagram:instagram}
 
 	return instagram
 }
