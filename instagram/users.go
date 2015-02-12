@@ -60,5 +60,4 @@ func (o *UserApi) Search(query string, count int) ([]User, *Content, error) {
 	var item = new([]User)
 	content, err := o.Instagram.NewRequest(item, "GET", path, params, true)
 	return *item, content ,err
-
 }
