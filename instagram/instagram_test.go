@@ -5,15 +5,16 @@ import (
 	"fmt"
 	"strings"
 	"os"
-	// "net/url"	
 )
 var _ = fmt.Printf
-
 var client *Instagram
 var selfId string
+var mediaId string
 
 func TestMain(m *testing.M) {
 	selfId = "" // you have to set selfId
+	mediaId = "889858275048983161_263873"
+
 	client = NewClient(func(config *Config){
 		config.RedirectUri = "http://localhost"
 	})
