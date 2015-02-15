@@ -14,8 +14,11 @@ func TestMain(m *testing.M) {
 	selfId = "" // you have to set selfId
 	mediaId = "889858275048983161_263873"
 
+	// set your api setting
 	client = NewClient(func(config *Config){
 		config.RedirectUri = "http://localhost"
+		config.ClientId = ""
+		config.ClientSecret = ""
 	})
 	client.SetAccessToken(os.Getenv("INSTAGRAM_ACCESS_TOKEN"))
 	os.Exit(m.Run())
