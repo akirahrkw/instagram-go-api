@@ -32,12 +32,12 @@ var url = client.AuthorizeURLWithScope([]string{"likes","comments","relationship
 #### RequestToken
 
 ```go
-data, err := client.RequestAccessToken("token")
+data, err := client.RequestAccessToken(token)
 ```
 
-or, if you have already access_token
+or, if you have already access token
 ```go
-client.SetAccessToken(ACCESS_TOKEN)
+client.SetAccessToken(accessToken)
 ```
 
 ### APIs
@@ -65,7 +65,7 @@ items, content, err := client.Users.RecentMedia(userId, params)
 
 items, content, err := client.Users.LikedMedia(params)
 
-items, content, err := client.Users.Search("japan", 5)
+items, content, err := client.Users.Search(query, 5)
 ```
 
 ---
